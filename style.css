@@ -125,6 +125,7 @@ input[type="number"] {
 .shape-button.add-button {
     font-size: 30px;
     font-weight: bold;
+    color: #808080
 }
 
 .canvas-area {
