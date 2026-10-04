@@ -601,53 +601,31 @@ function drawShape(drawCtx, size, shape) {
     // ====================
 
     if (shape.startsWith("image-")) {
-
-        const index =
-            parseInt(
-                shape.replace("image-", "")
-            );
-
-        const image =
-            customImages[index];
-
+        const index = parseInt(shape.replace("image-", ""));
+        const image = customImages[index];
         if (!image) return;
 
-        const imageWidth =
-            image.naturalWidth;
+        const imageWidth = image.naturalWidth;
+        const imageHeight = image.naturalHeight;
 
-        const imageHeight =
-            image.naturalHeight;
-
-        if (
-            imageWidth <= 0 ||
-            imageHeight <= 0
-        ) {
+        if (imageWidth <= 0 || imageHeight <= 0) {
             return;
         }
 
-        // sizeを「長い辺」の大きさにする
         let width;
         let height;
 
         if (imageWidth >= imageHeight) {
-
             width = size;
-
-            height =
-                size *
-                imageHeight /
-                imageWidth;
-
+            height = size * imageHeight / imageWidth;
         } else {
-
             height = size;
-
-            width =
-                size *
-                imageWidth /
-                imageHeight;
+            width = size * imageWidth / imageHeight;
         }
 
+        drawCtx.save();
+
+        // 元画像
         drawCtx.drawImage(
             image,
             -width / 2,
@@ -655,6 +633,23 @@ function drawShape(drawCtx, size, shape) {
             width,
             height
         );
+
+        // 色を重ねる
+        drawCtx.globalCompositeOperation = "source-atop";
+        drawCtx.globalAlpha =
+            parseInt(colorOpacityInput.value) / 100;
+
+        drawCtx.fillStyle = colorInput.value;
+
+        drawCtx.fillRect(
+            -width / 2,
+            -height / 2,
+            width,
+            height
+        );
+
+        // 元に戻す
+        drawCtx.restore();
 
         return;
     }
@@ -756,17 +751,26 @@ function draw() {
     // パターン生成
     // ====================
 
+    const maxX =
+        Math.ceil(patternCanvas.width / gap);
+
+    const maxY =
+        Math.ceil(patternCanvas.height / gap);
+
     for (
-        let x = -patternCanvas.width;
-        x < patternCanvas.width;
-        x += gap
+        let ix = -maxX;
+        ix <= maxX;
+        ix++
     ) {
 
         for (
-            let y = -patternCanvas.height;
-            y < patternCanvas.height;
-            y += gap
+            let iy = -maxY;
+            iy <= maxY;
+            iy++
         ) {
+
+            const x = ix * gap;
+            const y = iy * gap;
 
             // 並びを回転
             const rx =
