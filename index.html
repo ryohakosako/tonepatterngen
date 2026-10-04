@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Pattern Generator</title>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <div class="editor-layout">
+    <div class="controls">
+
+      <label>
+        サイズ：
+        <input type="range" id="size" min="5" max="100" value="20">
+      </label>
+
+      <label>
+        間隔：
+        <input type="range" id="gap" min="10" max="200" value="50">
+      </label>
+
+      <label>
+        並び角度：
+        <input type="range" id="gridAngle" min="0" max="360" value="0">
+        <input type="number" id="gridAngleNumber" min="0" max="360" value="0">°
+      </label>
+
+      <label>
+        図形角度：
+        <input type="range" id="shapeAngle" min="0" max="360" value="0">
+        <input type="number" id="shapeAngleNumber" min="0" max="360" value="0">°
+      </label>
+
+      <label>
+        ランダム度：
+        <input type="range" id="randomRotation" min="0" max="100" value="0">
+        <span id="randomRotationValue">0%</span>
+      </label>
+
+      <label class="setting-row">
+        <span>色：</span>
+
+        <span class="setting-control">
+          <input type="color" id="color" value="#000000">
+        </span>
+      </label>
+
+      <label class="setting-row">
+        <span>色の透明度：</span>
+
+        <span class="setting-control">
+          <input type="range" id="colorOpacity" min="0" max="100" value="100">
+
+          <span id="colorOpacityValue">100%</span>
+        </span>
+      </label>
+
+      <label class="setting-row">
+        <span>図形の透明度：</span>
+
+        <span class="setting-control">
+          <input type="range" id="shapeOpacity" min="0" max="100" value="100">
+
+          <span id="shapeOpacityValue">100%</span>
+        </span>
+      </label>
+
+      <!-- ==================== -->
+      <!-- 図形選択 -->
+      <!-- ==================== -->
+
+      <div class="shape-section">
+
+        <div id="shapePalette" class="shape-palette">
+
+          <button class="shape-button selected" data-shape="circle">
+            ●
+          </button>
+
+          <button class="shape-button" data-shape="square">
+            ■
+          </button>
+
+          <button class="shape-button" data-shape="heart">
+            ♥
+          </button>
+
+          <button class="shape-button" data-shape="star">
+            ★
+          </button>
+
+          <button class="shape-button" data-shape="triangle">
+            ▲
+          </button>
+
+          <button id="addImageButton" class="shape-button add-button">
+            ＋
+          </button>
+
+        </div>
+
+        <input type="file" id="imageInput" accept="image/*" hidden>
+
+      </div>
+
+      <label>
+        背景：
+        <input type="color" id="patternBackground" value="#ffffff">
+        <button type="button" id="transparentBackground">透明</button>
+      </label>
+
+      <label class="setting-row">
+        <span>背景画像：</span>
+
+        <span class="setting-control">
+          <input type="file" id="backgroundImageInput" accept="image/*">
+
+          <button type="button" id="removeBackgroundImage">
+            消去
+          </button>
+        </span>
+      </label>
+
+      <label>
+        背景画像の不透明度：
+        <input type="range" id="backgroundImageOpacity" min="0" max="100" value="100">
+        <span id="backgroundImageOpacityValue">100%</span>
+      </label>
+
+      <div class="canvas-size">
+
+        <label>
+          幅：
+          <input type="number" id="canvasWidth" min="1" max="5000" value="400">
+          px
+        </label>
+
+        <label>
+          高さ：
+          <input type="number" id="canvasHeight" min="1" max="5000" value="400">
+          px
+        </label>
+
+      </div>
+
+      <button id="download">保存</button>
+    </div>
+
+    <div class="canvas-area">
+      <canvas id="canvas"></canvas>
+    </div>
+
+  </div>
+
+  <script src="script.js"></script>
+
+</body>
+
+</html>
