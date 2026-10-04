@@ -1323,6 +1323,25 @@ downloadButton.addEventListener(
     }
 );
 
+// ====================
+// 設定リセット
+// ====================
+
+const resetSettingsButton =
+    document.getElementById("resetSettings");
+
+resetSettingsButton.addEventListener(
+    "click",
+    () => {
+
+        localStorage.removeItem(
+            SETTINGS_KEY
+        );
+
+        location.reload();
+    }
+);
+
 
 // ====================
 // 初期表示
